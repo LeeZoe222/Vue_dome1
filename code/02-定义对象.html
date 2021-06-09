@@ -10,11 +10,24 @@
 </head>
 
 <body>
+    <div id="box"></div>
     <script>
-        var obj = {
-            myname: 'zoe'
-        }
-        obj.myage = 1
+        // var obj = {
+        //     myname: 'zoe'
+        // }
+        // obj.myage = 12
+
+        var obox = document.getElementById("box")
+        var obj = {}
+        Object.defineProperty(obj, "myname", {
+            set(value) {
+                console.log("修改", value)
+                obox.innerHTML = value
+            },
+            get() {
+                console.log("访问")
+            }
+        })
     </script>
 </body>
 
