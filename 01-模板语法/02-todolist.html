@@ -11,12 +11,44 @@
 
 <body>
     <div id="box">
+        <!-- 事件中，不加() ，得到事件对象 -->
+        <!-- <input type="text" @input="handleInput" /> -->
 
+        <!-- v-model 双向绑定的指令 -->
+        <input type="text" v-model="mytext" />
+        <button @click="handleClick()">add</button>
+
+        <ul>
+            <li v-for="(item,index) in datalist" :key="index">
+                {{ item }}
+                <button @click="handleDel(index)">X</button>
+            </li>
+        </ul>
     </div>
     <script>
         const app = new Vue({
             el: '#box',
-            data: {}
+            data: {
+                mytext: "",
+                datalist: []
+            },
+            methods: {
+                handleClick() {
+                    console.log("add", this.mytext)
+                    this.datalist.push(this.mytext)
+
+                    this.mytext = "" // 重置input 
+                },
+                // handleInput(evt) {
+                //     // console.log("input", evt.target.value)
+                //     this.mytext = evt.target.value
+                // }
+
+                handleDel(myindex) {
+                    console.log("del", myindex)
+                    this.datalist.splice(myindex, 1) // 删一条数据
+                }
+            }
         })
     </script>
 </body>
