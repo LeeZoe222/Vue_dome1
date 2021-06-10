@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+        .red {
+            background-color: red;
+        }
+        
+        .pink {
+            background-color: pink;
+        }
+        
+        .a {}
+        
+        .b {}
+        
+        .c {}
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div :class="classobj">动态切换class-对象写法</div>
+        <div :class="classarr">动态切换class-数组写法</div>
+
+        <div style="background-color: pink;">静态行内样式</div>
+        <div :style="styleobj">动态切换style-对象写法</div>
+        <div :style="stylearr">动态切换style-数组写法</div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                classobj: {
+                    a: true,
+                    b: true,
+                    c: true
+                },
+                classarr: ["a", "b", "c"],
+                styleobj: {
+                    backgroundColor: "red"
+                },
+                stylearr: [{
+                    backgroundColor: "blue"
+                }]
+            }
+        })
+
+        // Vue.set(vm.classobj,"d",true)  拦截        
+        // Vue.set(vm.styleobj,"fontSize","40px")  拦截
+    </script>
+</body>
+
+</html>

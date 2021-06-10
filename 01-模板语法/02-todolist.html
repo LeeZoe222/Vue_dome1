@@ -18,7 +18,8 @@
         <input type="text" v-model="mytext" />
         <button @click="handleClick()">add</button>
 
-        <ul>
+        <div v-if="datalist.length===0">没有任务</div>
+        <ul v-else>
             <li v-for="(item,index) in datalist" :key="index">
                 {{ item }}
                 <button @click="handleDel(index)">X</button>

