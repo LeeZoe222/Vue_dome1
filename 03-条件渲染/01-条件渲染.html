@@ -12,7 +12,7 @@
 <body>
     <div id="box">
         <ul>
-            <li v-for="(data,index) in list" :key="index">
+            <li v-for="data in list" :key="data.id">
                 <!-- {{ data }} -->
                 <div>{{ data.name }}</div>
                 <div>{{ data.price }}</div>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <h1>{{ count }}</h1>
+        <button @click="handleAdd1">add1-函数名-自动传事件对象</button>
+        <button @click="handleAdd2($event,2)">add2-函数表达式-手动传事件对象&自己的参数</button>
+
+        <button @click="count+=3">add3-直接写代码-模板逻辑过重</button>
+
+        <ul @click="handleUlClick">
+            <li @click.stop="handleLiClick">11111</li>
+        </ul>
+
+        <!-- form提交 .prevent  阻止默认事件  .self 只在自身事件源 .once  只触发一次 -->
+        <a href="http://www.baidu.com" @click.prevent>跳转</a>
+
+        <button @click.once="handleAward">抽奖</button>
+
+        <input type="text" @keyup.enter="handleKeyUp">
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                count: 1
+            },
+            methods: {
+                handleAdd1(evt) {
+                    // console.log(evt.target)
+                    this.count++
+                },
+                handleAdd2(evt, data) {
+                    console.log(evt.target)
+                    this.count += data
+                },
+
+                handleLiClick(evt) {
+                    // 阻止冒泡
+                    // evt.stopPropagation()
+
+                    console.log('handleLiClick')
+                },
+                handleUlClick() {
+                    console.log('handleUlClick')
+                },
+
+                handleAward() {
+                    console.log('抽奖1')
+                },
+
+                handleKeyUp(evt) {
+                    console.log(evt.keyCode)
+                    if (evt.keyCode === 13) {
+                        // 往 datalist 中 push 操作
+                        // this.datalist.push(evt.target.value)
+                        console.log("放入数据")
+                    }
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

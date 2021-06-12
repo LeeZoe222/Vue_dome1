@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <input type="password" v-model="mytext">
+        <h1>{{ mytext }}</h1>
+
+        <textarea v-model="mytext"></textarea>
+
+        <h2>多选-checkbox</h2>
+        <input type="checkbox" value="vue" v-model="checkGroup">vue
+        <input type="checkbox" value="react" v-model="checkGroup">react
+        <input type="checkbox" value="juquery" v-model="checkGroup">juquery
+        <button @click="handleSubmit()">提交</button>
+        <hr>
+
+        <h3>checkbox-记住用户名</h3>
+        <input type="checkbox" v-model="isRem">记住用户名
+        <button @click="handleLogin()">登录</button>
+        <hr>
+
+        <h4>radio - 单选</h4>
+        <input type="radio" v-model="favorlang" value="vue" name="favor">vue
+        <input type="radio" v-model="favorlang" value="react" name="favor">react
+        <input type="radio" v-model="favorlang" value="juquery" name="favor">juquery
+        <button @click="handleSelect()">单选提交</button>
+    </div>
+    <script>
+        const app = new Vue({
+            el: '#box',
+            data: {
+                mytext: "",
+                checkGroup: [],
+                isRem: false,
+                favorlang: ''
+            },
+            methods: {
+                handleSubmit() {
+                    console.log("提交", this.checkGroup)
+                },
+
+                handleLogin() {
+                    console.log("登录", this.isRem)
+                },
+                handleSelect() {
+                    console.log(this.favorlang)
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

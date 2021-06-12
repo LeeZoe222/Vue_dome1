@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+        li {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+
+        <div v-if="list.length===0">购物车空了！</div>
+        <template v-else>
+            <input type="checkbox" v-model="isAllChecked" />全选/全不选
+            <ul>
+                <li v-for="(item,index) in list" :key="item.id">
+                    <input type="checkbox" v-model="checkGroup" :value="item" @change="checked()" />
+                    <div>
+                        <div>名称：{{ item.name }}</div>
+                        <div>价格：￥{{ item.price }}</div>
+                    </div>
+                    <div>
+                        <button @click="item.number--" :disabled="item.number===1">-</button> {{ item.number }}
+                        <button @click="item.number++" :disabled="item.number===item.limit">+</button>
+                    </div>
+                    <div>
+                        <button @click="handleDelete(index,item.id)">删除</button>
+                    </div>
+                </li>
+            </ul>
+                {{ checkGroup }}
+            <div style="background-color: pink;">
+                总金额: {{ sum() }}
+            </div>
+        </template>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                checkGroup: [],
+                isAllChecked: false,
+                list: [{
+                    name: "商品1",
+                    price: 10,
+                    number: 1,
+                    id: 1,
+                    limit: 5 // 限购
+                }, {
+                    name: "商品2",
+                    price: 20,
+                    number: 2,
+                    id: 2,
+                    limit: 10 // 限购
+                }, {
+                    name: "商品3",
+                    price: 30,
+                    number: 3,
+                    id: 3,
+                    limit: 15 // 限购
+                }]
+            },
+
+            methods: {
+                sum() {
+                    var total = 0
+
+                    this.checkGroup.forEach(item => {
+                        total += item.price * item.number
+                    })
+
+                    // console.log(total)
+
+                    return total
+                },
+
+                // 删除方法
+                handleDelete(index, deleteid) {
+                    console.log(deleteid)
+
+                    // 删除 checkGroup数组的对应的元素
+
+                    // filter
+                    this.checkGroup = this.checkGroup.filter(item => item.id !== deleteid)
+
+                    // 删除原数组
+                    this.list.splice(index, 1)
+
+                    // 判定是否全选勾上
+                    this.checked()
+                },
+
+                // 判定是否全选
+                checked() {
+                    if (this.checkGroup.length === this.list.length) {
+                        this.isAllChecked = true
+                    } else {
+                        this.isAllChecked = false
+                    }
+                }
+            },
+
+            watch: {
+                // 监听状态的改变
+                isAllChecked(data) {
+                    console.log("isAllChecked状态改变了", data)
+
+                    if (this.isAllChecked) {
+                        this.checkGroup = this.list
+                    } else {
+                        if (this.checkGroup.length === this.list.length) {
+                            this.checkGroup = []
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

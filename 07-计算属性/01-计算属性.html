@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <!-- 模板过重，难以维护 -->
+        <!-- {{ myname.substring(0,1).toUpperCase()+myname.substring(1) }} -->
+
+        <!-- 计算属性--有缓存 -->
+        {{ mycomputedname }}
+        <!-- 方法 -->
+        {{ mymethodsname() }}
+
+        <h2>计算属性</h2>
+        <div>{{ mycomputedname }}</div>
+        <div>{{ mycomputedname }}</div>
+        <div>{{ mycomputedname }}</div>
+
+        <h3>方法</h3>
+        <div>{{ mymethodsname() }}</div>
+        <div>{{ mymethodsname() }}</div>
+        <div>{{ mymethodsname() }}</div>
+
+        <h4>计算属性-可以被赋值--{{ mytext }}</h4>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                myname: 'zoe'
+            },
+            methods: {
+                mymethodsname() {
+                    console.log("mymethodsname")
+                    return this.myname.substring(0, 1).toUpperCase() + this.myname.substring(1)
+                }
+            },
+            computed: {
+                // 简写
+                mycomputedname() {
+                    console.log("mycomputedname")
+                        // 基于依赖的改变，重新执行一次
+                    return this.myname.substring(0, 1).toUpperCase() + this.myname.substring(1)
+                },
+
+                mytext: {
+                    get() {
+                        return "33333" + this.myname
+                    },
+                    set(data) {
+                        console.log("计算属性被赋值了", data)
+                        this.myname = data
+                    }
+                }
+            }
+        })
+
+
+        // data: 状态
+        // computed: 注重结果
+        //     1.逻辑计算，防止模板过重，有缓存
+        //     2.监听： 依赖修改， get 方法必须 return
+
+        // methods:
+        //     1.点击事件处理函数，return 不是必须的
+        //     2.函数表达式的逻辑处理，没有缓存
+
+        // watch: 监听，观察 --注重过程
+        //   不用 return 调用
+    </script>
+</body>
+
+</html>
