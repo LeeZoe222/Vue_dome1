@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <div ref="mydiv">111</div>
+        <input type="text" ref="mytext" />
+
+        <child ref="mychild"></child>
+        <button @click="handleAdd">add</button>
+    </div>
+    <script>
+        Vue.component("child", {
+            data() {
+                return {
+                    childname: "111111"
+                }
+            },
+            template: `
+            <div style="background:pink">
+                child--{{ childname }}
+            </div>
+            `
+        })
+        var vm = new Vue({
+            el: '#box',
+            data: {
+
+            },
+            methods: {
+                handleAdd() {
+                    console.log(this.$refs.mychild.childname)
+                    this.$refs.mychild.childname = "333333"
+                }
+            }
+        })
+
+        /*
+            1. ref 放在标签上，拿到的是原生节点
+            2. ref 放在组件上，拿到的是组件对象，通信功能
+        */
+    </script>
+</body>
+
+</html>

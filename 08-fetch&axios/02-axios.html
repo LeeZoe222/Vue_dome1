@@ -13,6 +13,14 @@
 <body>
     <div id="box">
         <button @click="handleClick">axios</button>
+
+        <ul>
+            <li v-for="item in datalist" :key="item.id">
+                <img :src="handleImg(item.img)" :alt="item.nm">
+                <h3>{{ item.nm }}</h3>
+                <p>{{ item.showInfo }}</p>
+            </li>
+        </ul>
     </div>
     <script>
         var vm = new Vue({
@@ -23,9 +31,14 @@
             methods: {
                 handleClick() {
                     console.log("axios")
-                    axios.get("./json/text.json").then(res => {
-                        console.log(res.data)
+                    axios.get("./json/maoyan.json").then(res => {
+                        console.log(res.data.movieList)
+                        this.datalist = res.data.movieList
                     })
+                },
+
+                handleImg(path) {
+                    return path.replace('w.h', '') + '@1l_1e_1c_128w_180h'
                 }
             }
         })
@@ -37,8 +50,14 @@
                 name: "zoe",
                 age: 21
             }).then(res=>{})
+
+            axios  带 cookie
         */
     </script>
 </body>
 
 </html>
+
+<!-- http://p0.meituan.net/w.h/movie/db95f0ad6a6963f3c9b21a8e53cdcad72771847.jpg
+
+https://p0.meituan.net/movie/cc08f286aea37c3355fb4bb2441aef3f3457731.jpg@1l_1e_1c_128w_180h -->
