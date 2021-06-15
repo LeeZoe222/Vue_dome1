@@ -18,7 +18,7 @@
             <li v-for="item in datalist" :key="item.id">
                 <img :src="handleImg(item.img)" :alt="item.nm">
                 <h3>{{ item.nm }}</h3>
-                <p>{{ item.showInfo }}</p>
+                <p>{{ item.rt }}</p>
             </li>
         </ul>
     </div>
@@ -31,9 +31,9 @@
             methods: {
                 handleClick() {
                     console.log("axios")
-                    axios.get("./json/maoyan.json").then(res => {
-                        console.log(res.data.movieList)
-                        this.datalist = res.data.movieList
+                    axios.get("./json/maoyan1.json").then(res => {
+                        console.log(res.data.coming)
+                        this.datalist = res.data.coming
                     })
                 },
 
