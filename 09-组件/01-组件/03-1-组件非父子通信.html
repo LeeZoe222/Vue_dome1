@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <child1></child1>
+        <child2></child2>
+    </div>
+    <script>
+        // 中央事件总线 bus
+
+        var bus = new Vue() // 空的vue实例
+
+        // bus.$on   bus.$emit
+
+        Vue.component("child1", {
+            template: `
+            <div>
+                child1-<button @click="handleClick()">详情</button>
+            </div>
+            `,
+            methods: {
+                handleClick() {
+                    bus.$emit("zoe", "33333")
+                }
+            }
+        })
+        Vue.component("child2", {
+            template: `
+            <div>
+                child2-订阅者
+            </div>
+            `,
+            mounted() {
+                console.log("mounted-生命周期-dom创建完之后就会触发")
+                bus.$on("zoe", (data) => {
+                    console.log("订阅者child2---", data)
+                })
+            }
+        })
+
+        var vm = new Vue({
+            el: '#box',
+            data: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>
