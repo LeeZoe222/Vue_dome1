@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+        .zoe-enter-active {
+            animation: aaa 1.5s;
+        }
+        
+        .zoe-leave-active {
+            animation: aaa 1.5s reverse;
+            /* reverse  逆向执行 */
+        }
+        
+        @keyframes aaa {
+            0% {
+                opacity: 0;
+                transform: translateX(1000px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="zoe-enter-active">11111</div>
+    <div class="zoe-leave-active">22222</div> -->
+    <div id="box">
+        <button @click="isShow=!isShow">click</button>
+
+        <transition name="zoe">
+            <div v-show="isShow">111111111</div>
+        </transition>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                isShow: true
+            }
+        })
+    </script>
+</body>
+
+</html>
