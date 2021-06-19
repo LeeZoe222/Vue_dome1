@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="../lib/vue.js"></script>
+    <style>
+        .swiper-container {
+            width: 400px;
+            height: 200px;
+            background: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div class="swiper-container zoe">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="(data,index) in datalist" v-swiper="{
+                    current:index,
+                    length: datalist.length
+                }">
+                    {{ data }}
+                </div>
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    <script>
+        Vue.directive("swiper", {
+            inserted(el, binding, vnode) {
+                // vnode 虚拟节点
+                console.log(vnode.context.datalist.length)
+
+                // console.log(binding.value, this.datalist)
+
+                if (binding.value.current === binding.value.length - 1) {
+                    var mySwiper = new Swiper('.zoe', {
+                        // direction: 'vertical', // 垂直切换选项
+                        loop: true, // 循环模式选项
+
+                        // 如果需要分页器
+                        pagination: {
+                            el: '.swiper-pagination',
+                        }
+                    })
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                datalist: []
+            },
+            mounted() {
+                setTimeout(() => {
+                    this.datalist = ["aaa", "bbb", "ccc"]
+                }, 2000)
+            }
+        })
+    </script>
+</body>
+
+</html>

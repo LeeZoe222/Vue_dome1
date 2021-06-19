@@ -45,7 +45,7 @@
                 console.log("beforeUpdate")
             },
             updated() {
-                console.log("updated", "获取到更新后得到dom")
+                console.log("updated", "获取到更新后得到dom,依赖于dom操作的库,需要知道状态更新完,什么时候dom更新")
             },
             activated() {
                 console.log("activated")
@@ -57,7 +57,7 @@
                 console.log("beforeDestroy")
             },
             destroyed() {
-                console.log("destroyed")
+                console.log("destroyed", "取消定时器,window事件解绑操作")
             },
             errorCaptured() {
                 console.log("errorCaptured")

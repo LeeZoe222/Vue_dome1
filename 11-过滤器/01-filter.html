@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <script src="./axios.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <button @click="handleClick">axios</button>
+
+        <ul>
+            <li v-for="item in datalist" :key="item.id">
+                <img :src="item.img | zoefilter" :alt="item.nm" :title="item.nm">
+                <h3>{{ item.nm }}</h3>
+                <p>{{ item.rt }}</p>
+            </li>
+        </ul>
+        <!-- 可以串联使用 -->
+        <div>{{ 'myname' | uppercase | sub }}</div>
+    </div>
+    <script>
+        Vue.filter("zoefilter", function(path) {
+            return path.replace('w.h', '') + '@1l_1e_1c_128w_180h'
+        })
+
+        Vue.filter("uppercase", function(str) {
+            return str.toUpperCase()
+        })
+
+        Vue.filter("sub", function(str) {
+            return str.substring(0, 3)
+        })
+
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                datalist: []
+            },
+            methods: {
+                handleClick() {
+                    console.log("axios")
+                    axios.get("maoyan1.json").then(res => {
+                        console.log(res.data.coming)
+                        this.datalist = res.data.coming
+                    })
+                }
+            }
+        })
+
+        /* 
+            axios.post("*****", "name=zoe&age=21").then(res=>{})
+
+            axios.post("*****",{
+                name: "zoe",
+                age: 21
+            }).then(res=>{})
+
+            axios  带 cookie
+        */
+    </script>
+</body>
+
+</html>
+
+<!-- http://p0.meituan.net/w.h/movie/db95f0ad6a6963f3c9b21a8e53cdcad72771847.jpg
+
+https://p0.meituan.net/movie/cc08f286aea37c3355fb4bb2441aef3f3457731.jpg@1l_1e_1c_128w_180h -->

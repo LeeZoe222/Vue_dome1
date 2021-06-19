@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="../lib/vue.js"></script>
+    <style>
+        .swiper-container {
+            width: 400px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <swiper :key="datalist.length">
+            <div class="swiper-slide" v-for="data in datalist">
+                {{ data }}
+            </div>
+
+            <template #pagination>
+                <div class="swiper-pagination"></div>
+            </template>
+
+            <template #button>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </template>
+        </swiper>
+    </div>
+    <script>
+        Vue.component("swiper", {
+            template: `
+            <div class="swiper-container zoe">
+            <div class="swiper-wrapper">
+                <slot></slot>
+            </div>
+            <slot name="pagination"></slot>
+            <slot name="button"></slot>  
+            </div>
+            `,
+            mounted() {
+                var mySwiper = new Swiper('.zoe', {
+                    // direction: 'vertical', // 垂直切换选项
+                    loop: true, // 循环模式选项
+
+                    // 如果需要分页器
+                    pagination: {
+                        el: '.swiper-pagination',
+                    },
+
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                })
+            }
+        })
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                datalist: []
+            },
+            mounted() {
+                setTimeout(() => {
+                    this.datalist = ["aaa", "bbb", "ccc"]
+                }, 2000)
+            }
+        })
+    </script>
+</body>
+
+</html>
